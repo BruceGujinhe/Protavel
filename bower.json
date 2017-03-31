@@ -1,0 +1,26 @@
+{
+  "name": "protavel",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Rod <rod@protobia.tech>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower-assets",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "fontawesome#^4.6.3",
+    "jquery": "~2.1.4",
+    "bootswatch-ustclugFonts": "~3.3.76",
+    "chart.js": "npm:chart.js#^2.2.2"
+  }
+}

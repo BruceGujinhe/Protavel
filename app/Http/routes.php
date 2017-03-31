@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => [], 'prefix' => 'admin'], function() {
+    Route::controller('/', 'Admin\HomeController');
+});
