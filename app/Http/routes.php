@@ -16,5 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => [], 'prefix' => 'admin'], function() {
+    Auth::admin()->loginUsingId(1);
+
+    Route::resource('article', 'Admin\ArticleController');
+
     Route::controller('/', 'Admin\HomeController');
 });
