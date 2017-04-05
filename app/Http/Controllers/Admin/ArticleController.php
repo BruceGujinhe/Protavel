@@ -53,7 +53,7 @@ class ArticleController extends Controller
 
         if ($article) {
             // @todo 操作处理反馈
-            return redirect()->action('Admin\ArticleController@getIndex');
+            return redirect()->action('Admin\ArticleController@index');
         } else {
             // @todo 操作处理反馈
             return back();
