@@ -51,19 +51,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{{ Request::is('admin') ? 'active' : ''}}"><a href="{{ url('admin') }}">Home</a></li>
+                <li class="{{ Request::is('admin') ? 'active' : ''}}"><a href="{{ url('admin') }}">首页</a></li>
+                <li class="{{ Request::is('*article') ? 'active' : ''}}"><a href="{{ url('/admin/article') }}">文章</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::admin()->guest())
-                    <li class="{{ Request::is('login') ? 'active' : ''}}"><a href="{{ url('admin/log-in') }}">Login</a></li>
+                    <li class="{{ Request::is('login') ? 'active' : ''}}"><a href="{{ url('admin/log-in') }}">登录</a></li>
                 @else
-                    <li class="{{ Request::is('dashboard/guide*') ? 'active' : ''}}"><a href="{{ url('/dashboard/guide') }}"><span class="text-danger"><i class="glyphicon glyphicon-lamp"></i> {{ trans('dashboard.Guide') }}</span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::admin()->user()->nickname }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a target="_blank" href="/">{{ trans('dashboard.Go to domain WebApp') }}</a></li>
-                            <li><a href="{{ url('dashboard/log-out') }}">{{ trans('dashboard.Logout') }}</a></li>
+                            <li><a href="{{ url('admin/log-out') }}">登出</a></li>
                         </ul>
                     </li>
                 @endif

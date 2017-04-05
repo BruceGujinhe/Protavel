@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+use App\Article;
+
 class ArticleController extends Controller
 {
     /**
@@ -16,7 +19,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $assign['articles'] = Article::latest()->paginate();
+
+        return view('admin.article.index', $assign);
     }
 
     /**
@@ -26,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.article.create');
     }
 
     /**
@@ -37,7 +42,22 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title'         =>      'required|string|min:3',
+            'content'       =>      'required|string',
+        ]);
+
+        $data = $request->all();
+        $data['user_id'] = Auth::admin()->user()->id;
+        $article = Article::create($data);
+
+        if ($article) {
+            // @todo 操作处理反馈
+            return redirect()->action('Admin\ArticleController@getIndex');
+        } else {
+            // @todo 操作处理反馈
+            return back();
+        }
     }
 
     /**
@@ -48,7 +68,9 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $assign['article'] = Article::findOrFail($id);
+
+        return view('admin.article.show', $assign);
     }
 
     /**
@@ -59,7 +81,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $assign['article'] = Article::findOrFail($id);
+
+        return view('admin.article.edit', $assign);
     }
 
     /**
@@ -71,7 +95,15 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        if ($article->update($request->all())) {
+            // @todo 操作处理反馈
+            return redirect()->route('admin.article.show', ['id' => $article->id]);
+        } else {
+            // @todo 操作处理反馈
+            return back();
+        }
     }
 
     /**
@@ -82,6 +114,14 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        if ($article->delete()) {
+            // @todo 操作处理反馈
+            return back();
+        } else {
+            // @todo 操作处理反馈
+            return back();
+        }
     }
 }
