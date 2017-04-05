@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -16,6 +18,8 @@ class HomeController extends Controller
      */
     public function getIndex()
     {
+        Auth::admin()->loginUsingId(1);
+
         return view('admin.home.index');
     }
 
