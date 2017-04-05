@@ -139,6 +139,7 @@ class AdminHomeTest extends TestCase
         $this->call('DELETE', '/admin/article/' . $article->id)// 提交删除请求
              ->isRedirection();// 验证是否重定向
 
+        /* 获取刚删除的文章实例 */
         $test_article = \App\Article::find($article->id);
 
         $this->assertNull($test_article);// 验证是否被删除
