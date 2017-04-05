@@ -54,13 +54,13 @@ RUN curl -sS https://getcomposer.org/installer \
 
 ##
 ## Apache 配置
-RUN echo '<Directory /var/www/HeyCommunityCloud>\n\
+RUN echo '<Directory /var/www/Protavel>\n\
     Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
 </Directory>' >> /etc/apache2/apache2.conf
 
-RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/HeyCommunityCloud/g' /etc/apache2/sites-enabled/000-default.conf
+RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/Protavel\/public/g' /etc/apache2/sites-enabled/000-default.conf
 
 
 ##
@@ -69,7 +69,7 @@ RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/HeyCommunit
 RUN a2enmod rewrite \
     && service apache2 restart \
     && mkdir -p /app \
-    && ln -s /app /var/www/HeyCommunityCloud
+    && ln -s /app /var/www/Protavel
 
 
 ##
@@ -80,7 +80,7 @@ RUN chown -R :www-data . && chmod g+w .
 
 
 ##
-## 部署 backend
+## 部署
 WORKDIR /app
 RUN composer install
 RUN bower install -F -p --allow-root

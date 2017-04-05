@@ -6,7 +6,7 @@ echo 'file_uploads = On
 upload_max_filesize = 200M
 post_max_size = 200M
 display_errors = On
-error_reporting = E_ALL' > /usr/local/etc/php/conf.d/HeyCommunityCloud.ini
+error_reporting = E_ALL' > /usr/local/etc/php/conf.d/Protavel.ini
 
 
 ##
@@ -67,7 +67,7 @@ if [ -n "$MYSQL_PORT_3306_TCP_PORT" ]; then
       exit 69
     fi
   done
-  echo 'HeyCommunity env is' $HC_ENV
+  echo 'Protavel env is' $HC_ENV
   echo 'With the database and perform the migration'
 else
   echo 'There is no database'
