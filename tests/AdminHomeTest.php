@@ -27,24 +27,29 @@ class AdminHomeTest extends TestCase
      */
     public function testCreateArticle()
     {
+        $user = App\Admin::find(1);// 寻找第一个Admin用户
+
         /* 创建 Faker 实例 */
         $faker         = Faker\Factory::create();
         $faker_title   = $faker->title;
         $faker_content = implode('', $faker->paragraphs(random_int(1, 5)));
 
-        $this->visit('admin/article/create')// 访问 文章创建 页
+        $this->actingAs($user)// 认证测试用户
+             ->visit('admin/article/create')// 访问 文章创建 页
              ->type($faker_title, 'title')// title 输入测试数据
              ->press('提交')// 模拟点击 提交
              ->dontSee('The title field is required.')// 验证是否输入成功
              ->assertResponseOk();// 验证状态码是否为 "200"
 
-        $this->visit('admin/article/create')// 访问 文章创建 页
+        $this->actingAs($user)// 认证测试用户
+             ->visit('admin/article/create')// 访问 文章创建 页
              ->type($faker_content, 'content')// content 输入测试数据
              ->press('提交')// 模拟点击 提交
              ->dontSee('The content field is required.')// 验证是否输入成功
              ->assertResponseOk();// 验证状态码是否为 "200"
 
-        $this->visit('admin/article/create')// 访问 文章创建 页
+        $this->actingAs($user)// 认证测试用户
+             ->visit('admin/article/create')// 访问 文章创建 页
              ->type($faker_title, 'title')// title 输入测试数据
              ->type($faker_content, 'content')// content 输入测试数据
              ->press('提交')// 模拟点击 提交
