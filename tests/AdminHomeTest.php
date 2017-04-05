@@ -13,9 +13,6 @@ class AdminHomeTest extends TestCase
      */
     public function testClickArticle()
     {
-        /* 停用中间件，忽略认证 */
-        $this->withoutMiddleware();
-
         $this->visit('/admin/')// 访问 "/admin/"
              ->seeLink('文章', '/admin/article')//验证是否有 "文章" 链接
              ->click('文章')// 点击 "文章" 链接
@@ -23,6 +20,11 @@ class AdminHomeTest extends TestCase
              ->assertResponseOk();// 验证状态码是否为 "200"
     }
 
+    /**
+     * 测试文章创建
+     *
+     * @return void
+     */
     public function testCreateArticle()
     {
         /* 创建 Faker 实例 */
@@ -51,6 +53,11 @@ class AdminHomeTest extends TestCase
              ->assertResponseOk();// 验证状态码是否为 "200"
     }
 
+    /**
+     * 测试Admin账户创建
+     *
+     * @return void
+     */
     public function testCreateAdmin()
     {
         /* 创建3个Admin实例 */
@@ -60,6 +67,11 @@ class AdminHomeTest extends TestCase
         $this->assertEquals(3, count($admins));
     }
 
+    /**
+     * 测试用户认证
+     *
+     * @return void
+     */
     public function testAdmin()
     {
         $user = App\Admin::find(1);// 寻找第一个Admin用户
@@ -70,6 +82,11 @@ class AdminHomeTest extends TestCase
              ->assertResponseOk();// 验证状态码是否为 "200"
     }
 
+    /**
+     * 测试文章查看
+     *
+     * @return void
+     */
     public function testSeeArticle()
     {
         $article = App\Article::all()->random(1);// 随机寻找一个文章
@@ -79,6 +96,11 @@ class AdminHomeTest extends TestCase
              ->assertResponseOk();// 验证状态码是否为 "200"
     }
 
+    /**
+     * 测试文章修改
+     *
+     * @return void
+     */
     public function testEditArticle()
     {
         /* 创建 Faker 实例 */
@@ -101,5 +123,24 @@ class AdminHomeTest extends TestCase
 
         /* 对比修改的标题 */
         $this->assertEquals($faker_title, $test_article->title);
+    }
+
+    /**
+     * 测试文章删除
+     *
+     * @return void
+     */
+    public function testDeleteArticle()
+    {
+        /* 停用中间件，忽略认证 */
+        $this->withoutMiddleware();
+
+        $article = App\Article::all()->random(1);// 随机寻找一个文章
+        $this->call('DELETE', '/admin/article/' . $article->id)// 提交删除请求
+             ->isRedirection();// 验证是否重定向
+
+        $test_article = \App\Article::find($article->id);
+
+        $this->assertNull($test_article);// 验证是否被删除
     }
 }
