@@ -24,11 +24,13 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+
 ##
 ## 安装 node npm 等
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash \
 && apt-get install -y nodejs \
-&& npm install -g bower
+&& npm install -g bower \
+&& npm install -g bower-npm-resolver
 
 
 ##
