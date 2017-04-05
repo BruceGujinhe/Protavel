@@ -42,7 +42,7 @@ class Admin extends ProtavelModel implements AuthenticatableContract,
      */
     public function articles()
     {
-        return $this->hasMany('App\Articles', 'user_id')->orderBy('created_at', 'desc');
+        return $this->hasMany('App\Article', 'user_id')->orderBy('created_at', 'desc');
     }
 
 }
