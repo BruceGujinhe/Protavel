@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => [], 'prefix' => 'admin'], function () {
     Route::resource('article', 'Admin\ArticleController');
-
+    // 文件上传路由
     Route::post('upload', ['uses' => 'Admin\UploadController@postIndex', 'as' => 'upload']);
-
     Route::controller('/', 'Admin\HomeController');
 });
