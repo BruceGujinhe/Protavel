@@ -15,8 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => [], 'prefix' => 'admin'], function() {
+Route::group(['middleware' => [], 'prefix' => 'admin'], function () {
     Route::resource('article', 'Admin\ArticleController');
+
+    Route::post('upload', ['uses' => 'Admin\UploadController@postIndex', 'as' => 'upload']);
 
     Route::controller('/', 'Admin\HomeController');
 });
