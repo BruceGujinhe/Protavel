@@ -44,7 +44,7 @@ class OAuthWechatController extends Controller
 
         // TODO 写表
 
-        $target_url = $_SESSION['target_url'] ?? '/';
+        $target_url = $_SESSION['target_url'] || '/';
         $target_url .= '?token=exp_id';
 
         return redirect($target_url);
