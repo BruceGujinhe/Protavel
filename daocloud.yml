@@ -9,7 +9,7 @@ stages:
   stage: 测试阶段
   job_type: test
   label: develop
-  image: daocloud.io/rodv2/ci-laravel
+  image: daocloud.io/rodv2/ci-laravel:dev-master
 
   services:
     - mysql
@@ -25,7 +25,7 @@ stages:
     - pwd
     - env
     - npm install
-    - bower install
+    - bower install -F -p --allow-root
     - composer self-update
     - composer install -n
 
