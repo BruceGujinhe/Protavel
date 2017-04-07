@@ -1,0 +1,16 @@
+app:
+  image: daocloud.io/protobia_alpha/protavel:dev-master
+  environment:
+  - LOCALE=zh-CN
+  - HC_ENV=test
+  - DB_CONNECTION=mysql
+  - DB_HOST=testing.protobia.net
+  - DB_DATABASE=dev_protavel
+  - DB_USERNAME=root
+  - DB_PASSWORD=root
+  - DB_PORT=13306
+  volumes:
+  - /data/ProtavelStorage:/app/public/uploads
+  ports:
+  - 8000:80
+  restart: always
