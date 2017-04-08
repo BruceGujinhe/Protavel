@@ -8,9 +8,19 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use Validator;
 
 class HomeController extends Controller
 {
+    /**
+     * construct
+     */
+    public function __construct()
+    {
+        $this->middleware('auth.admin', ['only' => ['getLogOut']]);
+        $this->middleware('guest.admin', ['only' => ['getLogIn', 'postLogIn']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,74 +28,57 @@ class HomeController extends Controller
      */
     public function getIndex()
     {
-        Auth::admin()->loginUsingId(1);
-
         return view('admin.home.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 登入
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getLogIn()
     {
-        //
+        return view('admin.home.log-in');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 登入
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Redirect
      */
-    public function store(Request $request)
+    public function postLogIn(Request $request)
     {
-        //
+        $this->validate($request, [
+            'username'      =>  'required|string',
+            'password'      =>  'required|string',
+        ]);
+
+        $usernameField = 'username';
+        $validator  = Validator::make($request->only('username'), [
+            'username'      =>  'email',
+        ]);
+        if ($validator->fails()) {
+            $usernameField = 'username';
+        } else {
+            $usernameField = 'email';
+        }
+
+        if (Auth::admin()->attempt([$usernameField => $request->username, 'password' => $request->password])) {
+            return redirect()->to('admin');
+        } else {
+            dd($usernameField, $request->username, $request->password);
+            return back()->withInput()->withErrors(['fail' => trans('dashboard.The email or password is incorrect')]);
+        }
     }
 
     /**
-     * Display the specified resource.
+     * 登出
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function getLogOut()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        Auth::admin()->logout();
+        return redirect()->to('admin');
     }
 }

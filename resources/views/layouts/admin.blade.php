@@ -54,14 +54,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('dashboard') }}">Protavel <sup>beta</sup></a>
+            <a class="navbar-brand" href="{{ url('admin') }}">Protavel <sup>alpha</sup></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{{ Request::is('admin') ? 'active' : ''}}"><a href="{{ url('admin') }}">首页</a></li>
-                <li class="{{ Request::is('*article') ? 'active' : ''}}"><a href="{{ url('/admin/article') }}">文章</a>
+                <li class="{{ Request::is('admin*') ? 'active' : ''}}"><a href="{{ url('admin') }}">首页</a></li>
+                <li class="{{ Request::is('*article*') ? 'active' : ''}}"><a href="{{ url('/admin/article') }}">文章</a>
                 </li>
             </ul>
 

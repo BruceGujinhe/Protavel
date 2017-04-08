@@ -33,8 +33,8 @@
                                 <td>{{ $article->id }}</td>
                                 <td>{{ $article->author->nickname }}</td>
                                 <td>{{ $article->title }}</td>
-                                <td>{{ $article->created_at }}</td>
-                                <td>
+                                <td class="text-nowrap">{{ $article->created_at }}</td>
+                                <td class="text-nowrap">
                                     <a class="btn btn-default btn-xs" href="{{ route('admin.article.show', ['id' => $article->id]) }}"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-default btn-xs" href="{{ route('admin.article.edit', ['id' => $article->id]) }}"><i class="fa fa-edit"></i></a>
                                     <button onclick="protavelDestroy(this)" class="btn btn-danger btn-xs" data-href="{{ route('admin.article.destroy', ['id' => $article->id]) }}"><i class="fa fa-trash"></i></button>
