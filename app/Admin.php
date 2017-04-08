@@ -21,7 +21,7 @@ class Admin extends ProtavelModel implements AuthenticatableContract,
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'administrators';
 
     /**
      * The attributes that are mass assignable.
