@@ -15,7 +15,7 @@ class CreateAdministratorsTable extends Migration
         Schema::create('administrators', function (Blueprint $table) {
             $table->increments('id');
             $table->string('wx_union_id')->nullable();
-            $table->string('username')->unllable();
+            $table->string('username')->nullable();
             $table->string('email')->nullable();
             $table->string('nickname');
             $table->string('phone')->nullable();
