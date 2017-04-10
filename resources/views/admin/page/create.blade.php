@@ -4,31 +4,28 @@
     <div class="container" class="page-article-create">
         <div class="row">
             <div class="col-sm-2">
-                @include('admin.article._sidenav')
+                @include('admin.page._sidenav')
             </div>
 
             <div class="col-sm-10">
                 <div id="protavel-breadcrumb">
                     <ol class="breadcrumb">
                         <li><a href="{{ url('/admin') }}">管理后台</a></li>
-                        <li><a href="{{ route('admin.article.index') }}">文章</a></li>
-                        <li class="active">更新</li>
+                        <li><a href="{{ route('admin.page.index') }}">单页管理</a></li>
+                        <li class="active">创建</li>
                     </ol>
                 </div>
 
                 <div id="protavel-mainbody">
-                    <p class="h3 text-center">更新文章</p>
+                    <p class="h3 text-center">创建单页</p>
                     <br><br>
 
-                    <form action="{{ route('admin.article.update', ['id' => $article->id]) }}" method="POST"
-                          class="form form-horizontal">
-                        <input type="hidden" name="_method" value="PATCH">
-
+                    <form action="{{ route('admin.page.store') }}" method="POST" class="form form-horizontal">
                         {{ csrf_field() }}
 
                         <!-- name -->
                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <label for="input-name" class="col-sm-2 control-label">名称</label>
+                            <label for="input-name" class="col-sm-2 control-label">链接名称</label>
                             <div class="col-sm-10">
                                 <input type="string" name="name" class="form-control" id="input-name"
                                        placeholder="" value="{{ old('name') }}">
@@ -38,21 +35,9 @@
                             </div>
                         </div>
 
-                        <!-- title -->
-                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label for="input-title" class="col-sm-2 control-label">标题</label>
-                            <div class="col-sm-10">
-                                <input type="string" name="title" class="form-control" id="input-title"
-                                       placeholder="" value="{{ old('title') }}">
-                                @if ($errors->has('title'))
-                                    <div class="help-block">{{ $errors->first('title') }}</div>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- link --}}
+                        <!-- link -->
                         <div class="form-group {{ $errors->has('link') ? 'has-error' : '' }}">
-                            <label for="input-link" class="col-sm-2 control-label">链接</label>
+                            <label for="input-link" class="col-sm-2 control-label">链接地址</label>
                             <div class="col-sm-10">
                                 <input type="string" name="link" class="form-control" id="input-link"
                                        placeholder="" value="{{ old('link') }}">
@@ -62,19 +47,30 @@
                             </div>
                         </div>
 
+                        <!-- title -->
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                            <label for="input-title" class="col-sm-2 control-label">单页标题</label>
+                            <div class="col-sm-10">
+                                <input type="string" name="title" class="form-control" id="input-title"
+                                       placeholder="" value="{{ old('title') }}">
+                                @if ($errors->has('title'))
+                                    <div class="help-block">{{ $errors->first('title') }}</div>
+                                @endif
+                            </div>
+                        </div>
+
                         <!-- content -->
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">内容</label>
+                            <label class="col-sm-2 control-label">单页内容</label>
                             <div class="col-sm-10 {{ $errors->has('content') ? 'has-error' : '' }}">
                                 <textarea name="content" id="editor" rows="8" placeholder="">{{ old('content') }}</textarea>
                                 @if ($errors->has('content'))
                                     <div class="help-block">{{ $errors->first('content') }}</div>
                                 @endif
+                                <!-- editor -->
+                                @include('layouts.editor')
                             </div>
                         </div>
-
-                        {{-- editor --}}
-                        @include('layouts.editor')
 
                         <br>
                         <div class="form-group">

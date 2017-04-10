@@ -61,8 +61,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ Request::is('admin*') ? 'active' : ''}}"><a href="{{ url('admin') }}">首页</a></li>
-                <li class="{{ Request::is('*article*') ? 'active' : ''}}"><a href="{{ url('/admin/article') }}">文章</a>
-                </li>
+                <li class="{{ Request::is('*article*') ? 'active' : ''}}"><a href="{{ url('/admin/article') }}">文章</a></li>
+                <li class="{{ Request::is('*page*') ? 'active' : ''}}"><a href="{{ url('admin/page') }}">单页管理</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
