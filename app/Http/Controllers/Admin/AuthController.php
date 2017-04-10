@@ -56,7 +56,6 @@ class AuthController extends Controller
         if (Auth::admin()->attempt([$usernameField => $request->username, 'password' => $request->password])) {
             return redirect()->to('admin');
         } else {
-            dd($usernameField, $request->username, $request->password);
             return back()->withInput()->withErrors(['fail' => trans('dashboard.The email or password is incorrect')]);
         }
     }
