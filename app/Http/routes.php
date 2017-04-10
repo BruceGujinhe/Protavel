@@ -15,9 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// page
 Route::resource('p', 'pageController');
 
-Route::group(['middleware' => [], 'prefix' => 'admin'], function () {
+
+
+//
+// Admin
+// -------------------------------
+Route::get('admin/log-in', 'Admin\AuthController@getLogIn');
+Route::post('admin/log-in', 'Admin\AuthController@postLogIn');
+Route::get('admin/log-out', 'Admin\AuthController@getLogOut');
+
+Route::group(['middleware' => ['auth.admin'], 'prefix' => 'admin'], function () {
     Route::resource('article', 'Admin\ArticleController');
     Route::resource('page', 'Admin\PageController');
 
